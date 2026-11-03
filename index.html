@@ -1,0 +1,378 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Nick Cave Dinleme Defteri</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=IBM+Plex+Sans:wght@400;500;600&family=Special+Elite&display=swap">
+<style>
+/* Layout: a record-collector's ledger. Masthead with running tally, a filter bar,
+   then one card per album in release order, each song with a Dinledim / Dinlemedim switch. */
+:root {
+  --bg: #e8e4e1;
+  --surface: #f4f1ee;
+  --fg: #1d1518;
+  --muted: #6b5d62;
+  --line: #cdc4c2;
+  --accent: #7d1d2e;
+  --accent-fg: #fff3f1;
+  --accent-text: #7d1d2e;
+  --off-bg: #1d1518;
+  --off-fg: #f4f1ee;
+  --font-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-label: "Special Elite", "Courier New", Courier, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #140c0f;
+    --surface: #1d1317;
+    --fg: #ece4df;
+    --muted: #a39297;
+    --line: #38282d;
+    --accent: #b83a52;
+    --accent-fg: #fff3f1;
+    --accent-text: #e0788a;
+    --off-bg: #ece4df;
+    --off-fg: #140c0f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #140c0f;
+  --surface: #1d1317;
+  --fg: #ece4df;
+  --muted: #a39297;
+  --line: #38282d;
+  --accent: #b83a52;
+  --accent-fg: #fff3f1;
+  --accent-text: #e0788a;
+  --off-bg: #ece4df;
+  --off-fg: #140c0f;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 72rem; margin-inline: auto; display: flex; flex-direction: column; gap: 24px; }
+
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+
+/* Masthead */
+.mast { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px 48px; align-items: end; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+.eyebrow { font-family: var(--font-label); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.6rem, 8vw, 5.2rem); line-height: 0.95; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+h1 em { font-style: italic; font-weight: 500; color: var(--accent-text); }
+.tally { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tally-num { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.tally-num small { font-family: var(--font-body); font-weight: 400; font-size: 15px; color: var(--muted); margin-left: 8px; }
+.bar { height: 8px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.bar > span { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.25s ease; }
+.tally-sub { font-size: 14px; color: var(--muted); margin: 0; font-variant-numeric: tabular-nums; }
+
+/* Filter bar */
+.bar-filters { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; padding-block: 4px; background: var(--bg); }
+.search { flex: 1 1 14rem; min-width: 0; }
+.search input { width: 100%; padding: 9px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; }
+.search input::placeholder { color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 8px 12px; font-size: 14px; white-space: nowrap; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; flex-basis: 100%; }
+.chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 4px 12px; font-family: var(--font-label); font-size: 13px; letter-spacing: 0.04em; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+
+@media (min-width: 760px) {
+  .bar-filters { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; padding-block: 12px; border-bottom: 1px solid var(--line); }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+}
+
+/* Albums */
+.albums { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 24rem), 1fr)); gap: 20px; align-items: start; }
+.album { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; min-width: 0; overflow: hidden; }
+.album-head { padding: 16px 16px 12px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; align-items: baseline; }
+.year { font-family: var(--font-display); font-weight: 700; font-size: 2rem; line-height: 1; font-variant-numeric: tabular-nums; color: var(--accent-text); grid-row: span 2; align-self: start; }
+.album-title { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; line-height: 1.15; margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
+.album-artist { font-family: var(--font-label); font-size: 13px; letter-spacing: 0.04em; color: var(--muted); margin: 0; }
+.album-meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; }
+.album-count { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.album-all { border: 1px solid var(--line); background: transparent; border-radius: 4px; padding: 4px 10px; font-size: 13px; }
+.album-all:hover { border-color: var(--fg); }
+.album-bar { height: 3px; background: var(--line); }
+.album-bar > span { display: block; height: 100%; background: var(--accent); }
+
+.tracks { list-style: none; margin: 0; padding: 0; }
+.track { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr) auto; gap: 4px 8px; align-items: center; padding: 8px 16px; border-top: 1px solid var(--line); }
+.track-n { font-family: var(--font-label); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.track-t { min-width: 0; overflow-wrap: anywhere; }
+.track.is-done .track-t { color: var(--muted); }
+.switch { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.switch button { border: 0; background: transparent; padding: 4px 10px; font-size: 13px; color: var(--muted); }
+.switch button + button { border-left: 1px solid var(--line); }
+.switch button[aria-pressed="true"][data-v="1"] { background: var(--accent); color: var(--accent-fg); }
+.switch button[aria-pressed="true"][data-v="0"] { background: var(--off-bg); color: var(--off-fg); }
+.switch button:not([aria-pressed="true"]):hover { color: var(--fg); }
+
+.empty { text-align: center; color: var(--muted); padding: 40px 0; font-family: var(--font-label); }
+.foot { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 16px; }
+
+@media (max-width: 759px) {
+  .mast { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  .track { grid-template-columns: 1.75rem minmax(0, 1fr); }
+  .switch { grid-column: 2 / -1; justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar > span { transition: none; }
+}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div>
+      <p class="eyebrow" id="eyebrow">Dinleme defteri</p>
+      <h1>Nick Cave, <em>şarkı şarkı</em></h1>
+    </div>
+    <div class="tally">
+      <div class="tally-num"><span id="tallyDone">0</span><small id="tallyTotal">/ 0 şarkı dinlendi</small></div>
+      <div class="bar" role="progressbar" aria-label="Dinlenen şarkı oranı" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="tallyBar"><span></span></div>
+      <p class="tally-sub" id="tallySub"></p>
+    </div>
+  </header>
+
+  <div class="bar-filters">
+    <div class="search"><input id="q" type="search" placeholder="Şarkı veya albüm ara" autocomplete="off" aria-label="Şarkı veya albüm ara"></div>
+    <div class="seg" role="group" aria-label="Duruma göre filtrele" id="statusSeg">
+      <button type="button" data-s="all" aria-pressed="true">Tümü</button>
+      <button type="button" data-s="todo" aria-pressed="false">Dinlemediklerim</button>
+      <button type="button" data-s="done" aria-pressed="false">Dinlediklerim</button>
+    </div>
+    <div class="chips" role="group" aria-label="Gruba göre filtrele" id="groupChips"></div>
+  </div>
+
+  <main class="albums" id="albums"></main>
+  <p class="empty" id="empty" hidden>Eşleşen şarkı yok.</p>
+
+  <footer class="foot">
+    <span id="syncNote">Seçimlerin bu tarayıcıda saklanıyor.</span>
+    <span>Stüdyo albümleri; canlı albümler, derlemeler ve film müzikleri yok.</span>
+  </footer>
+</div>
+
+<script>
+const ALBUMS = [
+  { g: "Birthday Party", a: "The Birthday Party", t: "Prayers on Fire", y: 1981, s: ["Zoo-Music Girl","Cry","Capers","Nick the Stripper","Ho-Ho","Figure of Fun","King Ink","A Dead Song","Yard","Dull Day","Just You and Me"] },
+  { g: "Birthday Party", a: "The Birthday Party", t: "Junkyard", y: 1982, s: ["She's Hit","Dead Joe","The Dim Locator","Hamlet (Pow, Pow, Pow)","Several Sins","Big-Jesus-Trash-Can","Kiss Me Black","6\" Gold Blade","Kewpie Doll","Junkyard"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "From Her to Eternity", y: 1984, s: ["Avalanche","Cabin Fever!","Well of Misery","From Her to Eternity","Saint Huck","Wings off Flies","A Box for Black Paul"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "The Firstborn Is Dead", y: 1985, s: ["Tupelo","Say Goodbye to the Little Girl Tree","Train Long-Suffering","Black Crow King","Knockin' on Joe","Wanted Man","Blind Lemon Jefferson"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Kicking Against the Pricks", y: 1986, s: ["Muddy Water","I'm Gonna Kill That Woman","Sleeping Annaleah","Long Black Veil","Hey Joe","The Singer","All Tomorrow's Parties","By the Time I Get to Phoenix","The Hammer Song","Something's Gotten Hold of My Heart","Jesus Met the Woman at the Well","The Carnival Is Over"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Your Funeral... My Trial", y: 1986, s: ["Sad Waters","The Carny","Your Funeral... My Trial","Stranger Than Kindness","Jack's Shadow","Hard On for Love","She Fell Away","Long Time Man"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Tender Prey", y: 1988, s: ["The Mercy Seat","Up Jumped the Devil","Deanna","Watching Alice","Mercy","City of Refuge","Slowly Goes the Night","Sunday's Slave","Sugar Sugar Sugar","New Morning"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "The Good Son", y: 1990, s: ["Foi Na Cruz","The Good Son","Sorrow's Child","The Weeping Song","The Ship Song","The Hammer Song","Lament","The Witness Song","Lucy"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Henry's Dream", y: 1992, s: ["Papa Won't Leave You, Henry","I Had a Dream, Joe","Straight to You","Brother, My Cup Is Empty","Christina the Astonishing","When I First Came to Town","John Finn's Wife","Loom of the Land","Jack the Ripper"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Let Love In", y: 1994, s: ["Do You Love Me?","Nobody's Baby Now","Loverman","Jangling Jack","Red Right Hand","I Let Love In","Thirsty Dog","Ain't Gonna Rain Anymore","Lay Me Low","Do You Love Me? (Part 2)"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Murder Ballads", y: 1996, s: ["Song of Joy","Stagger Lee","Henry Lee","Lovely Creature","Where the Wild Roses Grow","The Curse of Millhaven","The Kindness of Strangers","Crow Jane","O'Malley's Bar","Death Is Not the End"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "The Boatman's Call", y: 1997, s: ["Into My Arms","Lime Tree Arbour","People Ain't No Good","Brompton Oratory","There Is a Kingdom","(Are You) The One That I've Been Waiting For?","Where Do We Go Now But Nowhere?","West Country Girl","Black Hair","Idiot Prayer","Far from Me","Green Eyes"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "No More Shall We Part", y: 2001, s: ["As I Sat Sadly by Her Side","And No More Shall We Part","Hallelujah","Love Letter","Fifteen Feet of Pure White Snow","God Is in the House","Oh My Lord","Sweetheart Come","The Sorrowful Wife","We Came Along This Road","Gates to the Garden","Darker with the Day"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Nocturama", y: 2003, s: ["Wonderful Life","He Wants You","Right Out of Your Hand","Bring It On","Dead Man in My Bed","Still in Love","There Is a Town","Rock of Gibraltar","She Passed by My Window","Babe, I'm on Fire"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Abattoir Blues / The Lyre of Orpheus", y: 2004, s: ["Get Ready for Love","Cannibal's Hymn","Hiding All Away","Messiah Ward","There She Goes, My Beautiful World","Nature Boy","Abattoir Blues","Let the Bells Ring","Fable of the Brown Ape","The Lyre of Orpheus","Breathless","Babe, You Turn Me On","Easy Money","Supernaturally","Spell","Carry Me","O Children"] },
+  { g: "Grinderman", a: "Grinderman", t: "Grinderman", y: 2007, s: ["Get It On","No Pussy Blues","Electric Alice","Grinderman","Depth Charge Ethel","Go Tell the Women","(I Don't Need You To) Set Me Free","Honey Bee (Let's Fly to Mars)","Man in the Moon","When My Love Comes Down","Love Bomb"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Dig, Lazarus, Dig!!!", y: 2008, s: ["Dig, Lazarus, Dig!!!","Today's Lesson","Moonland","Night of the Lotus Eaters","Albert Goes West","We Call Upon the Author","Hold On to Yourself","Lie Down Here (& Be My Girl)","Jesus of the Moon","Midnight Man","More News from Nowhere"] },
+  { g: "Grinderman", a: "Grinderman", t: "Grinderman 2", y: 2010, s: ["Mickey Mouse and the Goodbye Man","Worm Tamer","Heathen Child","When My Baby Comes","What I Know","Evil","Kitchenette","Palaces of Montezuma","Bellringer Blues"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Push the Sky Away", y: 2013, s: ["We No Who U R","Wide Lovely Eyes","Water's Edge","Jubilee Street","Mermaids","We Real Cool","Finishing Jubilee Street","Higgs Boson Blues","Push the Sky Away"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Skeleton Tree", y: 2016, s: ["Jesus Alone","Rings of Saturn","Girl in Amber","Magneto","Anthrocene","I Need You","Distant Sky","Skeleton Tree"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Ghosteen", y: 2019, s: ["Spinning Song","Bright Horses","Waiting for You","Night Raid","Sun Forest","Galleon Ship","Ghosteen Speaks","Leviathan","Ghosteen","Fireflies","Hollywood"] },
+  { g: "Cave & Ellis", a: "Nick Cave & Warren Ellis", t: "Carnage", y: 2021, s: ["Hand of God","Old Time","Carnage","White Elephant","Albuquerque","Lavender Fields","Shattered Ground","Balcony Man"] },
+  { g: "Bad Seeds", a: "Nick Cave & the Bad Seeds", t: "Wild God", y: 2024, s: ["Song of the Lake","Wild God","Frogs","Joy","Final Rescue Attempt","Conversion","Cinnamon Horses","Long Dark Night","O Wow O Wow (How Wonderful She Is)","As the Waters Cover the Sea"] }
+];
+const GROUPS = ["Bad Seeds", "Grinderman", "Cave & Ellis", "Birthday Party"];
+
+const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+ALBUMS.forEach((al) => { al.id = slug(al.t); al.tracks = al.s.map((title, i) => ({ title, n: i + 1, k: al.id + "-" + (i + 1) })); });
+const TOTAL = ALBUMS.reduce((n, al) => n + al.tracks.length, 0);
+
+const LS_KEY = "nick-cave-dinleme-defteri";
+let done = {};
+try { const raw = localStorage.getItem(LS_KEY); if (raw) done = JSON.parse(raw) || {}; } catch (e) { done = {}; }
+
+const state = { status: "all", group: "all", q: "" };
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/ı/g, "i");
+
+function countDone() { return Object.keys(done).length; }
+
+function renderTally() {
+  const d = countDone();
+  const pct = TOTAL ? Math.round((d / TOTAL) * 100) : 0;
+  $("tallyDone").textContent = d;
+  $("tallyTotal").textContent = "/ " + TOTAL + " şarkı dinlendi";
+  const bar = $("tallyBar");
+  bar.setAttribute("aria-valuenow", pct);
+  bar.firstElementChild.style.width = pct + "%";
+  const doneAlbums = ALBUMS.filter((al) => al.tracks.every((t) => done[t.k])).length;
+  $("tallySub").textContent = "%" + pct + " tamam · " + (TOTAL - d) + " şarkı kaldı · " + doneAlbums + "/" + ALBUMS.length + " albüm bitti";
+}
+
+function matches(al, t) {
+  if (state.group !== "all" && al.g !== state.group) return false;
+  if (state.status === "done" && !done[t.k]) return false;
+  if (state.status === "todo" && done[t.k]) return false;
+  if (state.q) {
+    const q = norm(state.q);
+    if (!norm(t.title).includes(q) && !norm(al.t).includes(q)) return false;
+  }
+  return true;
+}
+
+function render(focusKey, focusVal) {
+  renderTally();
+  let html = "";
+  let shown = 0;
+  ALBUMS.forEach((al) => {
+    const rows = al.tracks.filter((t) => matches(al, t));
+    if (!rows.length) return;
+    shown++;
+    const d = al.tracks.filter((t) => done[t.k]).length;
+    const all = d === al.tracks.length;
+    html += '<section class="album" aria-label="' + esc(al.t) + '">' +
+      '<div class="album-head">' +
+        '<span class="year">' + al.y + '</span>' +
+        '<h2 class="album-title">' + esc(al.t) + '</h2>' +
+        '<p class="album-artist">' + esc(al.a) + '</p>' +
+        '<div class="album-meta"><span class="album-count">' + d + ' / ' + al.tracks.length + ' şarkı dinlendi</span>' +
+        '<button type="button" class="album-all" data-album="' + al.id + '">' + (all ? "Albümü sıfırla" : "Albümü dinledim") + '</button></div>' +
+      '</div>' +
+      '<div class="album-bar"><span style="width:' + Math.round((d / al.tracks.length) * 100) + '%"></span></div>' +
+      '<ol class="tracks">' +
+      rows.map((t) => {
+        const on = !!done[t.k];
+        return '<li class="track' + (on ? " is-done" : "") + '">' +
+          '<span class="track-n">' + String(t.n).padStart(2, "0") + '</span>' +
+          '<span class="track-t">' + esc(t.title) + '</span>' +
+          '<div class="switch" role="group" aria-label="' + esc(t.title) + ' dinleme durumu">' +
+            '<button type="button" data-k="' + t.k + '" data-v="1" aria-pressed="' + on + '">Dinledim</button>' +
+            '<button type="button" data-k="' + t.k + '" data-v="0" aria-pressed="' + !on + '">Dinlemedim</button>' +
+          '</div></li>';
+      }).join("") +
+      '</ol></section>';
+  });
+  $("albums").innerHTML = html;
+  $("empty").hidden = shown > 0;
+  if (focusKey) {
+    const el = document.querySelector('[data-k="' + focusKey + '"][data-v="' + focusVal + '"]');
+    if (el) el.focus({ preventScroll: true });
+  }
+}
+
+/* Persistence: browser storage always, the viewer's private database when available. */
+let ref = null, dirty = false, saving = false, saveTimer = null, pushedLocal = false;
+function setSync(mode) {
+  const note = $("syncNote");
+  if (mode === "cloud") note.textContent = "Seçimlerin hesabına kaydediliyor, diğer cihazlarda da görünür.";
+  else if (mode === "error") note.textContent = "Hesaba kaydedilemedi, seçimlerin bu tarayıcıda duruyor.";
+  else note.textContent = "Seçimlerin bu tarayıcıda saklanıyor.";
+}
+function saveLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify(done)); } catch (e) {} }
+function queueSave() {
+  saveLocal();
+  if (!ref) return;
+  dirty = true;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(flush, 500);
+}
+async function flush() {
+  if (!ref) return;
+  if (saving) { saveTimer = setTimeout(flush, 300); return; }
+  saving = true;
+  const snapshot = JSON.stringify(done);
+  try {
+    await ref.set({ done: JSON.parse(snapshot) });
+    if (JSON.stringify(done) === snapshot) dirty = false;
+    setSync("cloud");
+  } catch (e) { setSync("error"); }
+  saving = false;
+}
+async function connect() {
+  try {
+    if (!window.claude || !window.claude.use) return;
+    const user = await window.claude.use("user");
+    const db = await window.claude.use("db");
+    if (!user || !db) return;
+    const id = await user.id();
+    if (!id) return;
+    ref = db.collection("data/users/" + id).doc("nick-cave");
+    setSync("cloud");
+    ref.onSnapshot((snap) => {
+      if (snap.metadata && snap.metadata.hasPendingWrites) return;
+      if (snap.exists) {
+        if (dirty) return;
+        const remote = (snap.data() || {}).done || {};
+        if (JSON.stringify(remote) !== JSON.stringify(done)) { done = remote; saveLocal(); render(); }
+      } else if (!snap.metadata.fromCache && !pushedLocal && countDone() > 0) {
+        pushedLocal = true; dirty = true; flush();
+      }
+    }, () => { ref = null; setSync("local"); });
+  } catch (e) { ref = null; setSync("local"); }
+}
+
+/* Events */
+$("albums").addEventListener("click", (ev) => {
+  const sw = ev.target.closest("button[data-k]");
+  if (sw) {
+    const k = sw.dataset.k, v = sw.dataset.v;
+    if (v === "1") done[k] = true; else delete done[k];
+    queueSave();
+    render(k, v);
+    return;
+  }
+  const bulk = ev.target.closest("button[data-album]");
+  if (bulk) {
+    const al = ALBUMS.find((a) => a.id === bulk.dataset.album);
+    if (!al) return;
+    const all = al.tracks.every((t) => done[t.k]);
+    al.tracks.forEach((t) => { if (all) delete done[t.k]; else done[t.k] = true; });
+    queueSave();
+    render();
+    const again = document.querySelector('[data-album="' + al.id + '"]');
+    if (again) again.focus({ preventScroll: true });
+  }
+});
+$("statusSeg").addEventListener("click", (ev) => {
+  const b = ev.target.closest("button[data-s]");
+  if (!b) return;
+  state.status = b.dataset.s;
+  $("statusSeg").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  render();
+});
+$("groupChips").addEventListener("click", (ev) => {
+  const b = ev.target.closest("button[data-g]");
+  if (!b) return;
+  state.group = b.dataset.g;
+  $("groupChips").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  render();
+});
+$("q").addEventListener("input", (ev) => { state.q = ev.target.value.trim(); render(); });
+
+/* Start */
+$("groupChips").innerHTML = '<button type="button" class="chip" data-g="all" aria-pressed="true">Hepsi</button>' +
+  GROUPS.map((g) => '<button type="button" class="chip" data-g="' + esc(g) + '" aria-pressed="false">' + esc(g) + '</button>').join("");
+const years = ALBUMS.map((a) => a.y);
+$("eyebrow").textContent = "Dinleme defteri · " + Math.min.apply(null, years) + "–" + Math.max.apply(null, years) + " · " + ALBUMS.length + " albüm";
+render();
+connect();
+</script>
+
+</body></html>
